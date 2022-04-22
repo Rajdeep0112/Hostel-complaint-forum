@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/drawable-v24/round_tab.xml" value="0.107" />
+        <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/drawable-v24/round_tab_beta.xml" value="0.1125" />
         <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1125" />
         <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.107" />
+        <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/layout/activity_add_complaint.xml" value="0.15625" />
         <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/layout/activity_main.xml" value="0.14130434782608695" />
         <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/layout/activity_public_feed.xml" value="0.14130434782608695" />
         <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/layout/activity_student_login.xml" value="0.14130434782608695" />

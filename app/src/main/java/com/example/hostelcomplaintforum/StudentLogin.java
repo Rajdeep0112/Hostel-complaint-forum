@@ -103,6 +103,7 @@ public class StudentLogin extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                             finish();
                         }else{
+                            FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification();
                             fAuth.signOut();
                             Toast.makeText(getApplicationContext(), "Email not verified", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);

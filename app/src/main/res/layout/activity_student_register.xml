@@ -17,6 +17,12 @@
             android:gravity="center"
             android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:src="@drawable/sign"
+                android:layout_margin="15dp"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
