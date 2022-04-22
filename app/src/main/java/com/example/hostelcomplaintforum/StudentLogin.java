@@ -32,10 +32,7 @@ public class StudentLogin extends AppCompatActivity {
             startActivity(new Intent(this, PublicFeed.class));
             finish();
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> 047d9923421a0c87d8fa5965f01b8ea0ced57e40
     }
 
     @Override
@@ -45,10 +42,7 @@ public class StudentLogin extends AppCompatActivity {
             startActivity(new Intent(this, PublicFeed.class));
             finish();
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> 047d9923421a0c87d8fa5965f01b8ea0ced57e40
     }
 
     @Override
@@ -58,10 +52,7 @@ public class StudentLogin extends AppCompatActivity {
             startActivity(new Intent(this, PublicFeed.class));
             finish();
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> 047d9923421a0c87d8fa5965f01b8ea0ced57e40
     }
 
     @Override

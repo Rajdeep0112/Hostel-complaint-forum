@@ -22,6 +22,15 @@
             <item
                 android:id="@+id/d"
                 android:title="D" />
+            <item
+                android:id="@+id/j"
+                android:title="J" />
+            <item
+                android:id="@+id/i"
+                android:title="I" />
+            <item
+                android:id="@+id/k"
+                android:title="K" />
         </menu>
     </item>
 
@@ -36,6 +45,16 @@
             <item
                 android:id="@+id/public_water"
                 android:title="Water" />
+            <item
+                android:id="@+id/public_civil"
+                android:title="Civil" />
+            <item
+                android:id="@+id/public_electrical"
+                android:title="Electrical" />
+            <item
+                android:id="@+id/public_others"
+                android:title="Others" />
+
         </menu>
     </item>
 
