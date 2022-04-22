@@ -19,17 +19,18 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class StudentRegister extends AppCompatActivity {
 
-    TextInputLayout mUsername, mEmail, mPassword, mNumber;
+    TextInputLayout mUsername, mEmail, mPassword, mHostel, mRoom;
     LinearLayout loginText;
     Button continueBtn;
     ProgressBar progressBar;
-    String userName, email, password, number;
+    String userName, email, password, hostel, room;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
 
@@ -48,9 +49,10 @@ public class StudentRegister extends AppCompatActivity {
             userName = Objects.requireNonNull(mUsername.getEditText()).getText().toString().trim();
             email = Objects.requireNonNull(mEmail.getEditText()).getText().toString().trim();
             password = Objects.requireNonNull(mPassword.getEditText()).getText().toString().trim();
-            number = Objects.requireNonNull(mNumber.getEditText()).getText().toString().trim();
+            hostel = Objects.requireNonNull(mHostel.getEditText()).getText().toString().trim();
+            room = Objects.requireNonNull(mRoom.getEditText()).getText().toString().trim();
 
-            if (!validateUserName(userName) | !validateEmail(email) | !validatePassword(password) | !validateNumber(number)) {
+            if (!validateUserName(userName) | !validateEmail(email) | !validatePassword(password) | !validateHostel(hostel.toUpperCase(Locale.ROOT)) | !validateRoom(room)) {
 
                 if (!validateUserName(userName)) {
                     mUsername.setError(null);
@@ -83,17 +85,29 @@ public class StudentRegister extends AppCompatActivity {
                     mPassword.setErrorEnabled(false);
                     mPassword.setCounterEnabled(false);
                 }
-                if (!validateNumber(number)) {
-                    mNumber.setError(null);
-                    mNumber.setErrorEnabled(true);
-                    mNumber.setCounterEnabled(true);
+                if (!validateHostel(hostel)) {
+                    mHostel.setError(null);
+                    mHostel.setErrorEnabled(true);
+                    mHostel.setCounterEnabled(true);
                     progressBar.setVisibility(View.GONE);
-                    mNumber.setError("Invalid phone number");
-                    Toast.makeText(StudentRegister.this, number, Toast.LENGTH_LONG).show();
+                    mHostel.setError("Invalid hostel name");
+                    Toast.makeText(StudentRegister.this, hostel, Toast.LENGTH_LONG).show();
                 } else {
-                    mNumber.setError(null);
-                    mNumber.setErrorEnabled(false);
-                    mNumber.setCounterEnabled(false);
+                    mHostel.setError(null);
+                    mHostel.setErrorEnabled(false);
+                    mHostel.setCounterEnabled(false);
+                }
+                if (!validateRoom(room)) {
+                    mRoom.setError(null);
+                    mRoom.setErrorEnabled(true);
+                    mRoom.setCounterEnabled(true);
+                    progressBar.setVisibility(View.GONE);
+                    mRoom.setError("Invalid room number");
+                    Toast.makeText(StudentRegister.this, room, Toast.LENGTH_LONG).show();
+                } else {
+                    mRoom.setError(null);
+                    mRoom.setErrorEnabled(false);
+                    mRoom.setCounterEnabled(false);
                 }
             } else {
                 mUsername.setError(null);
@@ -122,18 +136,23 @@ public class StudentRegister extends AppCompatActivity {
                                 user.put("uName", userName);
                                 user.put("uEmail", email);
                                 user.put("uTimestamp",System.currentTimeMillis());
-                                user.put("uNumber", number);
+                                user.put("uHostel", hostel.toUpperCase(Locale.ROOT));
+                                user.put("uRoom", room.toUpperCase(Locale.ROOT));
                                 user.put("uAuthority", "student");
                                 FirebaseFirestore.getInstance()
                                         .collection("users")
                                         .document(email)
                                         .set(user)
-                                        .addOnSuccessListener(unused1 -> Toast.makeText(this, "Data added to cloud", Toast.LENGTH_SHORT).show())
-                                        .addOnFailureListener(e -> Toast.makeText(this, "Data not added. "+ e.getMessage(), Toast.LENGTH_SHORT).show());
+                                        .addOnSuccessListener(unused1 -> {
+                                            Toast.makeText(this, "Data added to cloud", Toast.LENGTH_SHORT).show();
+                                            firebaseAuth.signOut();})
+                                        .addOnFailureListener(e -> {
+                                            Toast.makeText(this, "Data not added. " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            firebaseAuth.signOut();
+                                        });
                                 //startActivity(intent);
                                 progressBar.setVisibility(View.GONE);
                                 continueBtn.setVisibility(View.VISIBLE);
-                                firebaseAuth.signOut();
                                 finish();
                             }).addOnFailureListener(e -> {
                                 continueBtn.setVisibility(View.VISIBLE);
@@ -155,7 +174,8 @@ public class StudentRegister extends AppCompatActivity {
 
     private void initializations() {
         mUsername = findViewById(R.id.userName);
-        mNumber = findViewById(R.id.number);
+        mHostel = findViewById(R.id.Hostel);
+        mRoom = findViewById(R.id.Room);
         mEmail = findViewById(R.id.email);
         mPassword = findViewById(R.id.password);
         continueBtn = findViewById(R.id.continueBtn);
@@ -181,7 +201,6 @@ public class StudentRegister extends AppCompatActivity {
     public boolean validatePassword(String s) {
         return s.length() >= 6;
     }
-    public boolean validateNumber(String s) {
-        return s.length() == 10;
-    }
+    public boolean validateHostel(String s) {if(s.length()==0)return false; else return (s.charAt(0)-'A'<=10 && s.charAt(0)-'A'>=0);}
+    public boolean validateRoom(String s) {return s.length()==4;}
 }
