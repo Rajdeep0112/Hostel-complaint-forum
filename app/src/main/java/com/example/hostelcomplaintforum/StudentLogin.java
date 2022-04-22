@@ -26,11 +26,35 @@ public class StudentLogin extends AppCompatActivity {
     private final int RC_SIGN_IN=2;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null) startActivity(new Intent(this, PublicFeed.class));
+        finish();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null) startActivity(new Intent(this, PublicFeed.class));
+        finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null) startActivity(new Intent(this, PublicFeed.class));
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_login);
         initializations();
-        (findViewById(R.id.registerText)).setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), StudentRegister.class)));
+        (findViewById(R.id.registerText)).setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), StudentRegister.class));
+            finish();
+        });
         continueBtn.setOnClickListener(view -> {
             email= Objects.requireNonNull(mEmail.getEditText()).getText().toString().trim();
             password= Objects.requireNonNull(mPassword.getEditText()).getText().toString().trim();
@@ -68,7 +92,7 @@ public class StudentLogin extends AppCompatActivity {
                 fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
                         Toast.makeText(getApplicationContext(), "User logged in", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        startActivity(new Intent(getApplicationContext(), PublicFeed.class));
                         progressBar.setVisibility(View.GONE);
                         finish();
                     }

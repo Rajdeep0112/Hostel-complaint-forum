@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HOSTELCOMPLAINTFORUM">
         <activity
+            android:name=".PublicFeed"
+            android:exported="false" />
+        <activity
             android:name=".StudentRegister"
             android:exported="false" />
         <activity
