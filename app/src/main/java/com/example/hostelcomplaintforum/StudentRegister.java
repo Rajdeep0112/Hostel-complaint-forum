@@ -83,7 +83,7 @@ public class StudentRegister extends AppCompatActivity {
                     mPassword.setErrorEnabled(false);
                     mPassword.setCounterEnabled(false);
                 }
-                if (!validateNumber(password)) {
+                if (!validateNumber(number)) {
                     mNumber.setError(null);
                     mNumber.setErrorEnabled(true);
                     mNumber.setCounterEnabled(true);
@@ -105,12 +105,12 @@ public class StudentRegister extends AppCompatActivity {
                 mPassword.setErrorEnabled(false);
                 mPassword.setCounterEnabled(false);
                 progressBar.setVisibility(View.VISIBLE);
-                continueBtn.setVisibility(View.INVISIBLE);
-                if (firebaseAuth.getCurrentUser() != null && !firebaseAuth.getCurrentUser().isEmailVerified()) {
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(StudentRegister.this, "Please verify the email with the link sent to you.", Toast.LENGTH_SHORT).show();
-                }
-                if (firebaseAuth.getCurrentUser() == null) {
+                //continueBtn.setVisibility(View.INVISIBLE);
+//                if (firebaseAuth.getCurrentUser() != null && !firebaseAuth.getCurrentUser().isEmailVerified()) {
+//                    progressBar.setVisibility(View.GONE);
+//                    Toast.makeText(StudentRegister.this, "Please verify the email with the link sent to you.", Toast.LENGTH_SHORT).show();
+//                }
+                //if (firebaseAuth.getCurrentUser() == null) {
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             firebaseAuth.getCurrentUser().sendEmailVerification().addOnSuccessListener(unused -> {
@@ -143,7 +143,8 @@ public class StudentRegister extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                         }
                     });
-                }
+//                }
+//                else Toast.makeText(this, "yhi dikkat hai", Toast.LENGTH_SHORT).show();
             }
         });
     }
