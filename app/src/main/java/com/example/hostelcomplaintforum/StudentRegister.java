@@ -49,10 +49,10 @@ public class StudentRegister extends AppCompatActivity {
             userName = Objects.requireNonNull(mUsername.getEditText()).getText().toString().trim();
             email = Objects.requireNonNull(mEmail.getEditText()).getText().toString().trim();
             password = Objects.requireNonNull(mPassword.getEditText()).getText().toString().trim();
-            hostel = Objects.requireNonNull(mHostel.getEditText()).getText().toString().trim();
-            room = Objects.requireNonNull(mRoom.getEditText()).getText().toString().trim();
+            hostel = Objects.requireNonNull(mHostel.getEditText()).getText().toString().trim().toUpperCase();
+            room = Objects.requireNonNull(mRoom.getEditText()).getText().toString().trim().toUpperCase();
 
-            if (!validateUserName(userName) | !validateEmail(email) | !validatePassword(password) | !validateHostel(hostel.toUpperCase(Locale.ROOT)) | !validateRoom(room)) {
+            if (!validateUserName(userName) | !validateEmail(email) | !validatePassword(password) | !validateHostel(hostel) | !validateRoom(room)) {
 
                 if (!validateUserName(userName)) {
                     mUsername.setError(null);
@@ -91,7 +91,6 @@ public class StudentRegister extends AppCompatActivity {
                     mHostel.setCounterEnabled(true);
                     progressBar.setVisibility(View.GONE);
                     mHostel.setError("Invalid hostel name");
-                    Toast.makeText(StudentRegister.this, hostel, Toast.LENGTH_LONG).show();
                 } else {
                     mHostel.setError(null);
                     mHostel.setErrorEnabled(false);
@@ -103,7 +102,6 @@ public class StudentRegister extends AppCompatActivity {
                     mRoom.setCounterEnabled(true);
                     progressBar.setVisibility(View.GONE);
                     mRoom.setError("Invalid room number");
-                    Toast.makeText(StudentRegister.this, room, Toast.LENGTH_LONG).show();
                 } else {
                     mRoom.setError(null);
                     mRoom.setErrorEnabled(false);
@@ -136,8 +134,8 @@ public class StudentRegister extends AppCompatActivity {
                                 user.put("uName", userName);
                                 user.put("uEmail", email);
                                 user.put("uTimestamp",System.currentTimeMillis());
-                                user.put("uHostel", hostel.toUpperCase(Locale.ROOT));
-                                user.put("uRoom", room.toUpperCase(Locale.ROOT));
+                                user.put("uHostel", hostel);
+                                user.put("uRoom", room);
                                 user.put("uAuthority", "student");
                                 FirebaseFirestore.getInstance()
                                         .collection("users")
@@ -201,6 +199,6 @@ public class StudentRegister extends AppCompatActivity {
     public boolean validatePassword(String s) {
         return s.length() >= 6;
     }
-    public boolean validateHostel(String s) {if(s.length()==0)return false; else return (s.charAt(0)-'A'<=10 && s.charAt(0)-'A'>=0);}
-    public boolean validateRoom(String s) {return s.length()==4;}
+    public boolean validateHostel(String s) {if(s.length()==0)return false; else return (s.charAt(0)-'A'<=10 && s.charAt(0)-'A'>=0 && s.length()==1);}
+    public boolean validateRoom(String s) {return (s.length()==4 && s.charAt(0)-'A'<=10 && s.charAt(0)-'A'>=0 && s.charAt(1)-'0'<=9 && s.charAt(2)-'0'<=9 && s.charAt(3)-'0'<=9);}
 }
