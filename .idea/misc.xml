@@ -5,9 +5,10 @@
       <map>
         <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/drawable-v24/round_tab.xml" value="0.107" />
         <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/layout/activity_main.xml" value="0.14130434782608695" />
-        <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/layout/activity_public_feed.xml" value="0.14130434782608695" />
         <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/layout/activity_student_login.xml" value="0.14130434782608695" />
         <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/layout/activity_student_register.xml" value="0.14130434782608695" />
+        <entry key="..\:/hcf/hostel-hackers/app/src/main/res/drawable-v24/round_tab.xml" value="0.1195" />
+        <entry key="..\:/hcf/hostel-hackers/app/src/main/res/layout/activity_public_feed.xml" value="0.10833333333333334" />
       </map>
     </option>
   </component>

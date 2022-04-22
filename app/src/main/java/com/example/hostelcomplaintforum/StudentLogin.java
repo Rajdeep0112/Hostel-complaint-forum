@@ -28,22 +28,31 @@ public class StudentLogin extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(FirebaseAuth.getInstance().getCurrentUser()!=null) startActivity(new Intent(this, PublicFeed.class));
-        finish();
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null) {
+            startActivity(new Intent(this, PublicFeed.class));
+            finish();
+        }
+
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        if(FirebaseAuth.getInstance().getCurrentUser()!=null) startActivity(new Intent(this, PublicFeed.class));
-        finish();
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null) {
+            startActivity(new Intent(this, PublicFeed.class));
+            finish();
+        }
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(FirebaseAuth.getInstance().getCurrentUser()!=null) startActivity(new Intent(this, PublicFeed.class));
-        finish();
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null) {
+            startActivity(new Intent(this, PublicFeed.class));
+            finish();
+        }
+
     }
 
     @Override
