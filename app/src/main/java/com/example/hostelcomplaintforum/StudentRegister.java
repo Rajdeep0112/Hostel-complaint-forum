@@ -83,7 +83,7 @@ public class StudentRegister extends AppCompatActivity {
                     mPassword.setErrorEnabled(false);
                     mPassword.setCounterEnabled(false);
                 }
-                if (!validateNumber(password)) {
+                if (!validateNumber(number)) {
                     mNumber.setError(null);
                     mNumber.setErrorEnabled(true);
                     mNumber.setCounterEnabled(true);
