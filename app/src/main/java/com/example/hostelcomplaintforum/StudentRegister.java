@@ -105,17 +105,19 @@ public class StudentRegister extends AppCompatActivity {
                 mPassword.setErrorEnabled(false);
                 mPassword.setCounterEnabled(false);
                 progressBar.setVisibility(View.VISIBLE);
-                //continueBtn.setVisibility(View.INVISIBLE);
+                continueBtn.setVisibility(View.INVISIBLE);
 //                if (firebaseAuth.getCurrentUser() != null && !firebaseAuth.getCurrentUser().isEmailVerified()) {
 //                    progressBar.setVisibility(View.GONE);
 //                    Toast.makeText(StudentRegister.this, "Please verify the email with the link sent to you.", Toast.LENGTH_SHORT).show();
 //                }
-                //if (firebaseAuth.getCurrentUser() == null) {
+                //  if (firebaseAuth.getCurrentUser() == null) {
+                //continueBtn.setVisibility(View.INVISIBLE);
+                if (firebaseAuth.getCurrentUser() == null) {
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             firebaseAuth.getCurrentUser().sendEmailVerification().addOnSuccessListener(unused -> {
                                 Toast.makeText(StudentRegister.this, "Email verification link sent to " + email, Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(getApplicationContext(), StudentLogin.class);
+                                //Intent intent = new Intent(getApplicationContext(), StudentLogin.class);
                                 Map<String, Object> user = new HashMap<>();
                                 user.put("uName", userName);
                                 user.put("uEmail", email);
@@ -131,6 +133,7 @@ public class StudentRegister extends AppCompatActivity {
                                 //startActivity(intent);
                                 progressBar.setVisibility(View.GONE);
                                 continueBtn.setVisibility(View.VISIBLE);
+                                firebaseAuth.signOut();
                                 finish();
                             }).addOnFailureListener(e -> {
                                 continueBtn.setVisibility(View.VISIBLE);
@@ -143,6 +146,7 @@ public class StudentRegister extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                         }
                     });
+                }
 //                }
 //                else Toast.makeText(this, "yhi dikkat hai", Toast.LENGTH_SHORT).show();
             }
@@ -169,7 +173,7 @@ public class StudentRegister extends AppCompatActivity {
         if (s == null || s.isEmpty()) {
             return false;
         }
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        String emailRegex = "^[a-zA-Z0-9_+&-]+(?:\\." + "[a-zA-Z0-9_+&-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pattern = Pattern.compile(emailRegex);
         return pattern.matcher(s).matches();
     }

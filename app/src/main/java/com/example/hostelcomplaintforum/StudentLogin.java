@@ -28,22 +28,28 @@ public class StudentLogin extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(FirebaseAuth.getInstance().getCurrentUser()!=null) startActivity(new Intent(this, PublicFeed.class));
-        finish();
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null) {
+            startActivity(new Intent(this, PublicFeed.class));
+            finish();
+        }
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        if(FirebaseAuth.getInstance().getCurrentUser()!=null) startActivity(new Intent(this, PublicFeed.class));
-        finish();
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null) {
+            startActivity(new Intent(this, PublicFeed.class));
+            finish();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(FirebaseAuth.getInstance().getCurrentUser()!=null) startActivity(new Intent(this, PublicFeed.class));
-        finish();
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null) {
+            startActivity(new Intent(this, PublicFeed.class));
+            finish();
+        }
     }
 
     @Override
@@ -90,11 +96,17 @@ public class StudentLogin extends AppCompatActivity {
                 mPassword.setCounterEnabled(false);
                 progressBar.setVisibility(View.VISIBLE);
                 fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
-                    if(task.isSuccessful()){
-                        Toast.makeText(getApplicationContext(), "User logged in", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), PublicFeed.class));
-                        progressBar.setVisibility(View.GONE);
-                        finish();
+                    if(task.isSuccessful()) {
+                        if (fAuth.getCurrentUser().isEmailVerified()) {
+                            Toast.makeText(getApplicationContext(), "User logged in", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), PublicFeed.class));
+                            progressBar.setVisibility(View.GONE);
+                            finish();
+                        }else{
+                            fAuth.signOut();
+                            Toast.makeText(getApplicationContext(), "Email not verified", Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
+                        }
                     }
                     else {
                         Toast.makeText(getApplicationContext(), Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
@@ -109,7 +121,7 @@ public class StudentLogin extends AppCompatActivity {
         if(s==null || s.isEmpty()){
             return false;
         }
-        String emailRegex= "^[a-zA-Z0-9_+&*-]+(?:\\."+"[a-zA-Z0-9_+&*-]+)*@"+"(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        String emailRegex= "^[a-zA-Z0-9_+&-]+(?:\\."+"[a-zA-Z0-9_+&-]+)*@"+"(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pattern= Pattern.compile(emailRegex);
         return pattern.matcher(s).matches();
     }
