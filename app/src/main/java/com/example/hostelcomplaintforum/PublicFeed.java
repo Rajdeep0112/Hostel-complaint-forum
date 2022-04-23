@@ -1,5 +1,6 @@
 package com.example.hostelcomplaintforum;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,26 +9,27 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class PublicFeed extends AppCompatActivity {
 
 
     public DrawerLayout drawerLayout;
     public Toolbar toolbar;
+    CardView addBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_public_feed);
-
-        // drawer layout instance to toggle the menu icon to open
-        // drawer and back button to close drawer
         drawerLayout = findViewById(R.id.my_drawer_layout);
         toolbar = findViewById(R.id.public_toolBar);
+        addBtn = findViewById(R.id.add_complaint);
         configureToolbar();
         configureNavigationDrawer();
         toolbar.setOnMenuItemClickListener(item -> {
@@ -38,6 +40,7 @@ public class PublicFeed extends AppCompatActivity {
             }
             return false;
         });
+        addBtn.setOnClickListener(view -> startActivity(new Intent(this, AddComplaint.class)));
     }
 
     private void configureToolbar() {
@@ -60,6 +63,12 @@ public class PublicFeed extends AppCompatActivity {
         navView.setNavigationItemSelectedListener(menuItem -> {
             if(menuItem.getItemId()==R.id.resetPassword) {
                 Toast.makeText(PublicFeed.this, "Reset Password", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if(menuItem.getItemId()==R.id.logout) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(this, MainActivity.class));
+                Toast.makeText(PublicFeed.this, "User Signed Out", Toast.LENGTH_SHORT).show();
                 return false;
             }
             return false;

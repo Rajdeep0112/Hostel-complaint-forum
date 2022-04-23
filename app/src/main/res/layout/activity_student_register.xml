@@ -17,6 +17,12 @@
             android:gravity="center"
             android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:src="@drawable/sign"
+                android:layout_margin="15dp"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,14 +70,27 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/number"
+                android:id="@+id/roomno"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="32dp"
-                android:hint="Phone Number"
+                android:hint="Room Number"
+                app:boxStrokeColor="@color/black"
+                app:endIconMode="clear_text"
+                app:hintTextColor="@color/gray">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/roomno"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="32dp"
+                android:hint="Room Number"
                 app:boxStrokeColor="@color/black"
                 app:endIconMode="clear_text"
                 app:hintTextColor="@color/gray">
