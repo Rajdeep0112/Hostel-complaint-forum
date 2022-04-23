@@ -2,6 +2,7 @@ package com.example.hostelcomplaintforum;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -17,11 +18,17 @@ public class MainActivity extends AppCompatActivity {
 
         initializations();
         btnFuncs();
+
     }
 
     private void btnFuncs() {
         student.setOnClickListener(view -> {
             startActivity(new Intent(getApplicationContext(), StudentLogin.class));
+            Log.d("Error", "Button clicked");
+        });
+
+        faculty.setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), FacultyLogin.class));
         });
     }
 
