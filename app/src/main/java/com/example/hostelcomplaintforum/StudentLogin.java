@@ -1,11 +1,13 @@
 package com.example.hostelcomplaintforum;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -118,6 +120,26 @@ public class StudentLogin extends AppCompatActivity {
                     }
                 });
             }
+        });
+        (findViewById(R.id.forgotPasswordLogin)).setOnClickListener(view -> {
+            email= Objects.requireNonNull(mEmail.getEditText()).getText().toString().trim();
+            EditText editText= new EditText(view.getContext());
+            AlertDialog.Builder passwordResetDialog= new AlertDialog.Builder(view.getContext());
+            passwordResetDialog.setTitle("Password Reset");
+            passwordResetDialog.setMessage("Enter your Email-ID to receive password reset link.");
+            passwordResetDialog.setView(editText);
+            editText.setText(email);
+
+            passwordResetDialog.setPositiveButton("Proceed", (dialogInterface, i) -> {
+                String mail= editText.getText().toString().trim();
+                if(validateEmail(mail))
+                fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(unused -> Toast.makeText(StudentLogin.this, "Password reset link sent.", Toast.LENGTH_SHORT).show())
+                        .addOnFailureListener(e -> Toast.makeText(StudentLogin.this, "Password reset link not sent. "+ e.getMessage(), Toast.LENGTH_SHORT).show());
+                else Toast.makeText(this, "Enter Valid Email", Toast.LENGTH_SHORT).show();
+            }).setNegativeButton("Cancel", (dialogInterface, i) -> {
+
+            });
+            passwordResetDialog.create().show();
         });
     }
 
