@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HOSTELCOMPLAINTFORUM">
         <activity
+            android:name=".FacultyRegistration"
+            android:exported="false" />
+        <activity
             android:name=".FacultyLogin"
             android:exported="false" />
         <activity
