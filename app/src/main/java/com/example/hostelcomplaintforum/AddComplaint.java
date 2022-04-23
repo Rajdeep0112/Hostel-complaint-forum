@@ -83,6 +83,8 @@ public class AddComplaint extends AppCompatActivity {
                                 .set(map)
                                 .addOnSuccessListener(unused -> {
                                     Toast.makeText(this, "Complaint Added.", Toast.LENGTH_SHORT).show();
+                                    mSubject.setText("");
+                                    mDesc.setText("");
                                     progressDialog.dismiss();
                                 })
                                 .addOnFailureListener(e -> {

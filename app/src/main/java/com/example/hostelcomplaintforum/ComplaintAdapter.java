@@ -9,7 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.MyViewHolder> {
     private final Context mContext;
@@ -37,10 +40,17 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.MyVi
     public void onBindViewHolder(@NonNull MyViewHolder holder, int i) {
         holder.mName.setText(mFiles.get(i).name);
         holder.mHostel.setText("Hostel - "+mFiles.get(i).hostel);
-        holder.mRoom.setText(mFiles.get(i).room);
+        if(mFiles.get(i).name=="Anonymous") holder.last_bar.setVisibility(View.INVISIBLE);
+        else holder.mRoom.setText(mFiles.get(i).room);
         holder.mSubject.setText(mFiles.get(i).subject);
         if(mFiles.get(i).reply==null) holder.mReply.setText("No replies yet.");
         else holder.mReply.setText("In progress");
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(mFiles.get(i).time);
+        holder.mDate.setText(formatter.format(calendar.getTime()));
+
+
     }
     @Override
     public int getItemCount() {
@@ -49,7 +59,7 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.MyVi
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mSubject, mName, mRoom, mHostel, mDate, mReply;
+        TextView mSubject, mName, mRoom, mHostel, mDate, mReply, last_bar;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -59,6 +69,7 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.MyVi
             mHostel = itemView.findViewById(R.id.hostel);
             mDate = itemView.findViewById(R.id.date);
             mReply = itemView.findViewById(R.id.reply_item);
+            last_bar = itemView.findViewById(R.id.last_bar);
         }
     }
 }
