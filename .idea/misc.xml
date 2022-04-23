@@ -7,6 +7,7 @@
         <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/layout/activity_main.xml" value="0.14130434782608695" />
         <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/layout/activity_student_login.xml" value="0.14130434782608695" />
         <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/layout/activity_student_register.xml" value="0.14130434782608695" />
+<<<<<<< HEAD
         <entry key="..\:/hcf/hostel-hackers/app/src/main/res/drawable-v24/round_tab.xml" value="0.1195" />
         <entry key="..\:/hcf/hostel-hackers/app/src/main/res/layout/activity_main.xml" value="0.14666666666666667" />
         <entry key="..\:/hcf/hostel-hackers/app/src/main/res/layout/activity_public_feed.xml" value="0.10833333333333334" />
@@ -14,6 +15,11 @@
         <entry key="..\:/hcf/hostel-hackers/app/src/main/res/layout/activity_student_register.xml" value="0.16666666666666666" />
         <entry key="..\:/hcf/hostel-hackers/app/src/main/res/menu/public_feed_menu.xml" value="0.125" />
         <entry key="..\:/hcf/hostel-hackers/app/src/main/res/menu/public_feed_navigation_menu.xml" value="0.125" />
+=======
+        <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/layout/complaint_list_item.xml" value="0.16802536231884058" />
+        <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/menu/public_feed_menu.xml" value="0.2" />
+        <entry key="..\:/HOSTELCOMPLAINTFORUM/app/src/main/res/menu/public_feed_navigation_menu.xml" value="0.2" />
+>>>>>>> 8a447c7c148785dc0b72b605127f7a70ad3a7f26
       </map>
     </option>
   </component>

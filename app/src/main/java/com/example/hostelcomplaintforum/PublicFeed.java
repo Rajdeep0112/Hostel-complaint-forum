@@ -12,9 +12,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 public class PublicFeed extends AppCompatActivity {
 
@@ -22,6 +29,9 @@ public class PublicFeed extends AppCompatActivity {
     public DrawerLayout drawerLayout;
     public Toolbar toolbar;
     CardView addBtn;
+    RecyclerView recyclerView;
+    ArrayList<ComplaintItem> mFiles = new ArrayList<ComplaintItem>();
+    ComplaintAdapter complaintAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +40,7 @@ public class PublicFeed extends AppCompatActivity {
         drawerLayout = findViewById(R.id.my_drawer_layout);
         toolbar = findViewById(R.id.public_toolBar);
         addBtn = findViewById(R.id.add_complaint);
+        recyclerView = findViewById(R.id.public_recycler_view);
         configureToolbar();
         configureNavigationDrawer();
         toolbar.setOnMenuItemClickListener(item -> {
@@ -40,7 +51,53 @@ public class PublicFeed extends AppCompatActivity {
             }
             return false;
         });
+        if (mFiles.size() > 1 || complaintAdapter == null) getFiles();
         addBtn.setOnClickListener(view -> startActivity(new Intent(this, AddComplaint.class)));
+        //getFiles();
+    }
+
+    private void getFiles() {
+        FirebaseFirestore.getInstance()
+                .collection("complaints")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        QuerySnapshot querySnapshots = task.getResult();
+                        for(DocumentSnapshot snapshot: querySnapshots){
+                            String subject, desc, mode, name, email, room, hostel, reply, state;
+                            long time;
+                            subject = snapshot.getString("cSubject");
+                            desc = snapshot.getString("cDesc");
+                            mode = snapshot.getString("cMode");
+                            name = snapshot.getString("cName");
+                            email = snapshot.getString("email");
+                            room = snapshot.getString("cRoom");
+                            hostel = snapshot.getString("cHostel");
+                            state = snapshot.getString("cState");
+                            reply= snapshot.getString("cReply");
+                            time =  Long.parseLong(snapshot.getString("cTime"));
+                            mFiles.add(new ComplaintItem(subject, desc, mode, name, email, room, hostel, time, state, reply));
+                            if (complaintAdapter != null)
+                                complaintAdapter.updateData(mFiles);
+                            else {
+                                if (mFiles.size() >= 1) {
+                                    complaintAdapter = new ComplaintAdapter(getApplicationContext(), mFiles);
+                                    recyclerView.setAdapter(complaintAdapter);
+                                    if (getApplicationContext() != null)
+                                        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()
+                                                , RecyclerView.VERTICAL, false));
+                                }
+                            }
+                        }
+                        if (mFiles.size() >= 1) {
+                            complaintAdapter = new ComplaintAdapter(getApplicationContext(), mFiles);
+                            recyclerView.setAdapter(complaintAdapter);
+                            if (getApplicationContext() != null)
+                                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()
+                                        , RecyclerView.VERTICAL, false));
+                        }
+                    }
+                });
     }
 
     private void configureToolbar() {
