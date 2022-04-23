@@ -92,6 +92,8 @@ public class AddComplaint extends AppCompatActivity {
                                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                     progressDialog.dismiss();
                                 });
+                        startActivity(new Intent(getApplicationContext(),PublicFeed.class));
+                        finish();
                     }
                 });
     }
