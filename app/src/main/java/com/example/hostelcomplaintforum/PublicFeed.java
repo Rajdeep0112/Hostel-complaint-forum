@@ -78,7 +78,10 @@ public class PublicFeed extends AppCompatActivity {
             return false;
         });
         if (mFiles.size() > 0 || complaintAdapter == null) getFiles();
-        addBtn.setOnClickListener(view -> startActivity(new Intent(this, AddComplaint.class)));
+        addBtn.setOnClickListener(view -> {
+            startActivity(new Intent(this, AddComplaint.class));
+            finish();
+        });
         //getFiles();
     }
 
@@ -209,12 +212,11 @@ public class PublicFeed extends AppCompatActivity {
 
                 return false;
             }
-            if (menuItem.getItemId() == R.id.resetPassword) {
-                Toast.makeText(PublicFeed.this, "Reset Password", Toast.LENGTH_SHORT).show();
-                return false;
-            }
             if (menuItem.getItemId() == R.id.myComplaints) {
                 filterSearch(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    this.drawerLayout.closeDrawer(GravityCompat.START);
+                }
                 return false;
             }
             if (menuItem.getItemId() == R.id.logout) {
@@ -232,7 +234,7 @@ public class PublicFeed extends AppCompatActivity {
         int itemId = item.getItemId();
         if (itemId == android.R.id.home) {
             drawerLayout.openDrawer(GravityCompat.START);
-            return true;
+            return false;
         }
         return true;
     }
@@ -243,5 +245,18 @@ public class PublicFeed extends AppCompatActivity {
         String emailRegex= "^[a-zA-Z0-9_+&-]+(?:\\."+"[a-zA-Z0-9_+&-]+)*@"+"(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pattern= Pattern.compile(emailRegex);
         return pattern.matcher(s).matches();
+    }
+    @Override
+    public void onBackPressed() {
+        if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            this.drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }
